@@ -1,1 +1,8 @@
-Loading screen
+<div class="container">
+    <h1>BLISS RECRUITMENT</h1>
+    <mat-spinner *ngIf="showSpinner">Connecting to service</mat-spinner>
+    <div *ngIf="!showSpinner">
+    Service Unavailable
+    <button mat-stroked-button color="primary" (click)="checkServerHealth()">TRY AGAIN</button>
+    </div>
+</div>
