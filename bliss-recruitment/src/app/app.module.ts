@@ -7,7 +7,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
-import { MatButtonModule, MatProgressSpinnerModule } from '@angular/material';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatProgressSpinnerModule } from '@angular/material';
 
 import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
 import { QuestionsComponent } from './components/questions/questions.component';
@@ -25,8 +26,12 @@ import { QuestionDetailComponent } from './components/question-detail/question-d
         BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
+        FormsModule,
         HttpClientModule,
         MatButtonModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
         MatProgressSpinnerModule
     ],
     providers: [],

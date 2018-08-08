@@ -1,1 +1,33 @@
-Questions List
+<h3>Questions List</h3>
+
+<!-- Search box -->
+<form *ngIf="!currentAppliedFilter" #searchForm (submit)="onSearchSubmit()">
+    <mat-form-field class="search-box">
+        <input type="text" #searchInput matInput placeholder="Search" name="searchInput" [(ngModel)]="searchInputValue">
+        <mat-icon matSuffix (click)="searchForm.submit()">search</mat-icon>
+    </mat-form-field>
+</form>
+
+<!-- Title when filter is active -->
+<div *ngIf="currentAppliedFilter" class="search-screen-title-bar">
+    <h4>Results filtered by '
+        <span class="search-txt">{{currentAppliedFilter}}</span>'</h4>
+    <button type="button" (click)="onSearchCancel()">Dismiss search</button>
+    <button type="button" (click)="shareScreen()">Share</button>
+</div>
+
+<!-- Questions List -->
+<ul class="questions">
+    <li *ngFor="let question of questions">
+        <a routerLink="/question/{{question.id}}">
+            <span class="badge">{{question.id}}</span> {{question.question}}
+        </a>
+    </li>
+    <li *ngIf="questions.length == 0">
+        No results
+    </li>
+</ul>
+
+<!-- Load more questions button -->
+<button *ngIf="!allQuestionsLoaded" type="button" (click)="loadNextQuestions()">Load more questions</button>
+<div *ngIf="allQuestionsLoaded">(no more questions available)</div>

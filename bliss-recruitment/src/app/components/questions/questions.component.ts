@@ -1,11 +1,81 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { QuestionsService } from '../../shared/questions.service';
+import { Question } from '../../shared/question';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-questions',
     templateUrl: './questions.component.html',
     styleUrls: ['./questions.component.scss']
 })
-export class QuestionsComponent {
-    constructor() {
+export class QuestionsComponent implements OnInit, AfterViewInit {
+
+    private questionsLimitByRequest = 10;
+
+    questions: Question[] = [];
+    allQuestionsLoaded = false;
+
+    @ViewChild('searchInput') searchInput: ElementRef;
+    searchInputValue = null;
+    currentAppliedFilter = null;
+
+    constructor(
+        private route: ActivatedRoute,
+        private questionsService: QuestionsService
+    ) {
+    }
+
+    ngOnInit() {
+        this.route.queryParams.subscribe(params => {
+            if(params.hasOwnProperty('question_filter')) {
+                this.searchInputValue = params['question_filter'];
+            }
+            if(this.searchInputValue) {
+                this.onSearchSubmit();
+            }
+            else {
+                this.loadNextQuestions();
+            }
+        });
+    }
+
+    ngAfterViewInit() {
+        if(this.searchInputValue == '') {
+            this.searchInput.nativeElement.focus();
+        }
+    }
+
+    loadNextQuestions(): void {
+        this.questionsService.getQuestions(this.questionsLimitByRequest, this.questions.length, this.currentAppliedFilter)
+            .subscribe(
+                (questions) => {
+                    this.questions = this.questions.concat(questions);
+                    this.allQuestionsLoaded = questions.length < this.questionsLimitByRequest;
+                }
+            );
+    }
+
+    loadSearchQuestions(searchValue: string): void {
+        this.questionsService.getQuestions(this.questionsLimitByRequest,0, searchValue)
+            .subscribe(
+                (questions) => {
+                    this.questions = questions;
+                    this.allQuestionsLoaded = questions.length < this.questionsLimitByRequest;
+                    this.currentAppliedFilter = searchValue;
+                }
+            );
+    }
+
+
+    onSearchSubmit() {
+        if(this.searchInputValue) {
+            this.loadSearchQuestions(this.searchInputValue);
+        }
+    }
+
+    onSearchCancel() {
+        this.questions = [];
+        this.currentAppliedFilter = null;
+        this.loadNextQuestions();
     }
 }
