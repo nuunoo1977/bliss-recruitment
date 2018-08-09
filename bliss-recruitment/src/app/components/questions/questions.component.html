@@ -1,10 +1,10 @@
 <h3>Questions List</h3>
 
 <!-- Search box -->
-<form *ngIf="!currentAppliedFilter" #searchForm (submit)="onSearchSubmit()">
+<form *ngIf="!currentAppliedFilter" #searchForm (ngSubmit)="onSearchSubmit(f, $event)">
     <mat-form-field class="search-box">
         <input type="text" #searchInput matInput placeholder="Search" name="searchInput" [(ngModel)]="searchInputValue">
-        <mat-icon matSuffix (click)="searchForm.submit()">search</mat-icon>
+        <mat-icon matSuffix (click)="onSearchSubmit()">search</mat-icon>
     </mat-form-field>
 </form>
 
