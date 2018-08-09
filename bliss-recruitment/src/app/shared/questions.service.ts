@@ -10,6 +10,7 @@ import { Question } from './question';
 import { QuestionUpdate } from './question-update';
 import { GetQuestionsParameters } from './get-questions-parameters';
 import { ShareParameters } from './share-parameters';
+import { environment } from '../../environments/environment';
 
 const httpPutOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -18,7 +19,7 @@ const httpPutOptions = {
 @Injectable({ providedIn: 'root' })
 export class QuestionsService {
 
-    private apiUrl = 'https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/';
+    private apiUrl = environment.apiUrl;
 
     constructor(
         private http: HttpClient,
@@ -30,7 +31,7 @@ export class QuestionsService {
         parameters = {
             limit: String(limit),
             offset: String(offset),
-        }
+        };
         if (filter) {
             parameters.filter = filter;
         }
@@ -44,7 +45,7 @@ export class QuestionsService {
         return this.http.get<any>(`${this.apiUrl}/health`)
             .pipe(
                 map(result => {
-                    if (result && result.status == 'OK') {
+                    if (result && result.status === 'OK') {
                         return true;
                     }
                     return false;
@@ -57,8 +58,8 @@ export class QuestionsService {
         return this.http.get<Question>(`${this.apiUrl}/questions/${questionId}`)
             .pipe(
                 map(result => {
-                    if (!result || result.id != questionId) {
-                        this.showErrorToUser("Error getting question");
+                    if (!result || result.id !== questionId) {
+                        this.showErrorToUser('Error getting question');
                         return null;
                     }
                     return result;
@@ -71,9 +72,9 @@ export class QuestionsService {
         return this.http.put<Question>(`${this.apiUrl}/questions/${question.id}`, question, httpPutOptions)
             .pipe(
                 map(result => {
-                    if (!result || result.id != question.id) {
-                        //TODO: other checkings (if choice updated was the one we sent, ...)
-                        this.showErrorToUser("Error updating question");
+                    if (!result || result.id !== question.id) {
+                        // TODO: other checkings (if choice updated was the one we sent, ...)
+                        this.showErrorToUser('Error updating question');
                         return null;
                     }
                     return result;
@@ -86,10 +87,10 @@ export class QuestionsService {
         return this.http.post<any>(`${this.apiUrl}/share`, { params: <any>parameters })
             .pipe(
                 map(result => {
-                    if (result && result.status == 'OK') {
+                    if (result && result.status === 'OK') {
                         return true;
                     }
-                    this.showErrorToUser("Error sharing content");
+                    this.showErrorToUser('Error sharing content');
                     return false;
                 }),
                 catchError(this.handleError<boolean>('sharing content', false))
@@ -99,9 +100,9 @@ export class QuestionsService {
     private handleError<T>(context: string, result?: T, notifyUser: boolean = true) {
         return (error: any): Observable<T> => {
 
-            console.error("Error " + context);
+            console.error('Error ' + context);
             if (notifyUser) {
-                this.showErrorToUser("Error " + context);
+                this.showErrorToUser('Error ' + context);
             }
             return of(result as T);
         };
