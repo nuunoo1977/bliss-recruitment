@@ -1,0 +1,7 @@
+<div class="container">
+    <h1>BLISS RECRUITMENT</h1>
+    <div *ngIf="serverError">
+    Service Unavailable
+    <button mat-stroked-button color="primary" (click)="checkServerHealth()">TRY AGAIN</button>
+    </div>
+</div>

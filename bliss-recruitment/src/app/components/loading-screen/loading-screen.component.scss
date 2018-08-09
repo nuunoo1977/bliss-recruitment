@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    div {
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        justify-content: center;
+        button {
+            margin-top: 16px;
+            text-transform: uppercase;
+        }
+    }
+    z-index: 1005;
+}

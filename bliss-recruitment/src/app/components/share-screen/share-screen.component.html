@@ -1,0 +1,16 @@
+<div mat-dialog-title [innerHtml]="data.title"></div>
+
+<form [formGroup]="form" (ngSubmit)="form.valid && share()" novalidate>
+    <mat-dialog-content>
+        <mat-form-field>
+            <input matInput type="email" cdkFocusInitial i18n-placeholder placeholder="Email" formControlName="email">
+            <mat-hint>Enter the recipient email</mat-hint>
+            <mat-error *ngIf="form.controls.email.invalid" i18n>You must enter a valid email</mat-error>
+        </mat-form-field>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+            <button type="button" mat-button mat-dialog-close>Cancel</button>
+            <button type="submit" mat-button>Share</button>
+    </mat-dialog-actions>
+</form>

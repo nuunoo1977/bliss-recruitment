@@ -1,0 +1,79 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body {
+    margin: 2em;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    color: #369;  
+}
+
+h2,
+h3 {
+    color: #444;
+    font-weight: lighter;
+}
+
+body,
+input[text],
+button {
+    color: #888;
+}
+
+a {
+    cursor: pointer;
+    cursor: hand;
+}
+
+//=============================================================================
+// Global styles
+//=============================================================================
+.line-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .action {
+        flex: 1 0 auto;
+        display: flex;
+        justify-content: flex-end;
+        button + button {
+            margin-left: 16px;
+        }
+    }
+}
+
+
+//=============================================================================
+// Notifications (snackbar)
+//=============================================================================
+
+$app-msg-sucess-bg-color: darken(#46BE8A, 15%);
+$app-msg-sucess-color: #FFFFFF;
+$app-msg-info-bg-color: rgba(#369, 0.5);
+$app-msg-info-color: #FFFFFF;
+$app-msg-alert-bg-color: darken(#F2A261, 15%);
+$app-msg-alert-color: #FFFFFF;
+$app-msg-error-bg-color: darken(#F96868, 15%);
+$app-msg-error-color: #FFFFFF;
+
+$notification-font-size: 14px;
+.notification-snackbar {
+    &.sucess {
+        background-color: $app-msg-sucess-bg-color;
+        color: $app-msg-sucess-color;
+    }
+    &.error {
+        background-color: $app-msg-error-bg-color;
+        color: $app-msg-error-color;
+    }
+    &.alert {
+        background-color: $app-msg-alert-bg-color;
+        color: $app-msg-alert-color;
+    }
+    &.info {
+        background-color: $app-msg-info-bg-color;
+        color: $app-msg-info-color;
+    }
+}
