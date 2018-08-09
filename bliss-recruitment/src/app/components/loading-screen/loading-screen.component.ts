@@ -1,6 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { QuestionsService } from '../../shared/questions.service';
 
 @Component({
     selector: 'app-loading-screen',
@@ -9,11 +9,11 @@ import { Router } from '@angular/router';
 })
 export class LoadingScreenComponent implements AfterViewInit {
 
-    showSpinner = true;
+    serverError = false;
 
     constructor(
-        private http: HttpClient,
-        private router: Router
+        private router: Router,
+        private questionsService: QuestionsService
     ) {
     }
 
@@ -22,18 +22,16 @@ export class LoadingScreenComponent implements AfterViewInit {
     }
 
     checkServerHealth() {
-        this.showSpinner = true;
-        this.http.get('https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/health')
-            .subscribe((result: any) => {
-                if(result && result.status == 'OK') {
-                    this.router.navigate(['/questions']);
+        this.serverError = false;
+        this.questionsService.checkServerHealth()
+            .subscribe(
+                (result) => {
+                    if (result) {
+                        this.router.navigate(['/questions']);
+                    }
+                    this.serverError = !result;
                 }
-                else {
-                    this.showSpinner = false;    
-                }
-            }, () => {
-                this.showSpinner = false;
-            });
+            );
     }
 
 }

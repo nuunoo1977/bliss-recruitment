@@ -1,7 +1,6 @@
 <div class="container">
     <h1>BLISS RECRUITMENT</h1>
-    <mat-spinner *ngIf="showSpinner">Connecting to service</mat-spinner>
-    <div *ngIf="!showSpinner">
+    <div *ngIf="serverError">
     Service Unavailable
     <button mat-stroked-button color="primary" (click)="checkServerHealth()">TRY AGAIN</button>
     </div>
