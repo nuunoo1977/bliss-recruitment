@@ -14,7 +14,7 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
 
     private questionsLimitByRequest = 10;
 
-    questions: Question[] = [];
+    questions: Question[] = null; // null -> not initialized, [] -> no results
     allQuestionsLoaded = false;
 
     @ViewChild('searchInput') searchInput: ElementRef;
@@ -55,10 +55,10 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
     }
 
     loadNextQuestions(): void {
-        this.questionsService.getQuestions(this.questionsLimitByRequest, this.questions.length, this.currentAppliedFilter)
+        this.questionsService.getQuestions(this.questionsLimitByRequest, this.questions? this.questions.length: 0, this.currentAppliedFilter)
             .subscribe(
                 (questions) => {
-                    this.questions = this.questions.concat(questions);
+                    this.questions = this.questions? this.questions.concat(questions) : questions;
                     this.allQuestionsLoaded = questions.length < this.questionsLimitByRequest;
                 }
             );
@@ -86,7 +86,7 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
     }
 
     onSearchCancel() {
-        this.questions = [];
+        this.questions = null;
         this.currentAppliedFilter = null;
         this.loadNextQuestions();
     }

@@ -10,7 +10,6 @@ import { Question } from './question';
 import { QuestionUpdate } from './question-update';
 import { GetQuestionsParameters } from './get-questions-parameters';
 import { ShareParameters } from './share-parameters';
-import { LoaderService } from './loader.services';
 
 const httpPutOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -23,8 +22,7 @@ export class QuestionsService {
 
     constructor(
         private http: HttpClient,
-        private notificationsService: NotificationsService,
-        private loaderService: LoaderService
+        private notificationsService: NotificationsService
     ) { }
 
     getQuestions(limit: number, offset: number, filter?: string): Observable<Question[]> {
@@ -38,7 +36,7 @@ export class QuestionsService {
         }
         return this.http.get<Question[]>(`${this.apiUrl}/questions`, { params: <any>parameters })
             .pipe(
-                catchError(this.handleError<Question[]>('get questions', <Question[]>[])),
+                catchError(this.handleError<Question[]>('getting questions', <Question[]>[])),
         );
     }
 
@@ -51,7 +49,7 @@ export class QuestionsService {
                     }
                     return false;
                 }),
-                catchError(this.handleError<boolean>('check server health', false, false))
+                catchError(this.handleError<boolean>('checking server health', false, false))
             );
     }
 
@@ -60,12 +58,12 @@ export class QuestionsService {
             .pipe(
                 map(result => {
                     if (!result || result.id != questionId) {
-                        this.showErrorToUser("Error when getting question");
+                        this.showErrorToUser("Error getting question");
                         return null;
                     }
                     return result;
                 }),
-                catchError(this.handleError<Question>('get question', null))
+                catchError(this.handleError<Question>('getting question', null))
             );
     }
 
@@ -75,12 +73,12 @@ export class QuestionsService {
                 map(result => {
                     if (!result || result.id != question.id) {
                         //TODO: other checkings (if choice updated was the one we sent, ...)
-                        this.showErrorToUser("Error when updating question");
+                        this.showErrorToUser("Error updating question");
                         return null;
                     }
                     return result;
                 }),
-                catchError(this.handleError<Question>('update question', null))
+                catchError(this.handleError<Question>('updating question', null))
             );
     }
 
@@ -91,19 +89,19 @@ export class QuestionsService {
                     if (result && result.status == 'OK') {
                         return true;
                     }
-                    this.showErrorToUser("Error in share content");
+                    this.showErrorToUser("Error sharing content");
                     return false;
                 }),
-                catchError(this.handleError<boolean>('share content', false))
+                catchError(this.handleError<boolean>('sharing content', false))
             );
     }
 
     private handleError<T>(context: string, result?: T, notifyUser: boolean = true) {
         return (error: any): Observable<T> => {
 
-            console.error("Error in " + context);
+            console.error("Error " + context);
             if (notifyUser) {
-                this.showErrorToUser("Error in " + context);
+                this.showErrorToUser("Error " + context);
             }
             return of(result as T);
         };
