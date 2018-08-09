@@ -4,6 +4,8 @@ import { Question } from '../../shared/question';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionUpdate } from '../../shared/question-update';
 import { NotificationsService } from '../../shared/notifications.service';
+import { ShareScreenOptions, ShareScreenComponent } from '../share-screen/share-screen.component';
+import { MatDialog } from '@angular/material';
 
 
 @Component({
@@ -17,7 +19,8 @@ export class QuestionDetailComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private questionsService: QuestionsService,
-        private notificationsService: NotificationsService
+        private notificationsService: NotificationsService,
+        private dialog: MatDialog
     ) {
     }
 
@@ -73,8 +76,18 @@ export class QuestionDetailComponent implements OnInit {
                     this.loadQuestion();
                 }
             }
-        );
-        
+        );   
+    }
+
+    shareScreen() {      
+        let options : ShareScreenOptions = {
+            title: "Share question " + this.questionId,
+            link: "/questions?question_id=" + this.questionId
+        };
+        this.dialog.open(ShareScreenComponent, {
+            data: options,
+            disableClose: false,
+        });
     }
 }
 

@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import { QuestionsService } from '../../shared/questions.service';
 import { Question } from '../../shared/question';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { ShareScreenComponent, ShareScreenOptions } from '../share-screen/share-screen.component';
 
 @Component({
     selector: 'app-questions',
@@ -22,7 +24,8 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private questionsService: QuestionsService
+        private questionsService: QuestionsService,
+        private dialog: MatDialog,
     ) {
     }
 
@@ -73,7 +76,10 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
     }
 
 
-    onSearchSubmit() {
+    onSearchSubmit(f?: any, event?: Event) {
+        if(event) {
+            event.preventDefault();
+        } 
         if (this.searchInputValue) {
             this.loadSearchQuestions(this.searchInputValue);
         }
@@ -83,5 +89,16 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
         this.questions = [];
         this.currentAppliedFilter = null;
         this.loadNextQuestions();
+    }
+
+    shareScreen() {      
+        let options : ShareScreenOptions = {
+            title: "Share search result",
+            link: "/questions?question_filter=" + encodeURIComponent(this.currentAppliedFilter)
+        };
+        this.dialog.open(ShareScreenComponent, {
+            data: options,
+            disableClose: false,
+        });
     }
 }

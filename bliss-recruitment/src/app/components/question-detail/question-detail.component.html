@@ -1,5 +1,6 @@
 <h3>Question {{questionId}} detail</h3>
 <button type="button" (click)="gotoQuestions()">Back to questions list</button>
+<button *ngIf="question" type="button" (click)="shareScreen()">Share</button>
 
 <div *ngIf="question" class="question-container">
     <img src="{{question.image_url}}">
