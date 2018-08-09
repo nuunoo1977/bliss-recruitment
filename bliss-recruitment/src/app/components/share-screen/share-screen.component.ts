@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { ShareParameters } from '../../shared/share-parameters';
+import { ShareParameters } from '../../shared/models/share-parameters';
 import { QuestionsService } from '../../shared/questions.service';
 import { NotificationsService } from '../../shared/notifications.service';
 

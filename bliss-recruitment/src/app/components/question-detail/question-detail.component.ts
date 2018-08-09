@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { QuestionsService } from '../../shared/questions.service';
-import { Question } from '../../shared/question';
+import { Question } from '../../shared/models/question';
 import { ActivatedRoute, Router } from '@angular/router';
-import { QuestionUpdate } from '../../shared/question-update';
+import { QuestionUpdate } from '../../shared/models/question-update';
 import { NotificationsService } from '../../shared/notifications.service';
 import { ShareScreenOptions, ShareScreenComponent } from '../share-screen/share-screen.component';
 import { MatDialog } from '@angular/material';

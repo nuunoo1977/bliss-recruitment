@@ -6,10 +6,10 @@ import { catchError, map, tap, finalize } from 'rxjs/operators';
 
 import { NotificationsService } from '../shared/notifications.service';
 
-import { Question } from './question';
-import { QuestionUpdate } from './question-update';
-import { GetQuestionsParameters } from './get-questions-parameters';
-import { ShareParameters } from './share-parameters';
+import { Question } from './models/question';
+import { QuestionUpdate } from './models/question-update';
+import { GetQuestionsParameters } from './models/get-questions-parameters';
+import { ShareParameters } from './models/share-parameters';
 import { environment } from '../../environments/environment';
 
 const httpPutOptions = {
