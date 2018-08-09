@@ -1,0 +1,85 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+h1 {
+    color: #369;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h2,
+h3 {
+    color: #444;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+}
+
+body {
+    margin: 2em;
+}
+
+body,
+input[text],
+button {
+    color: #888;
+    font-family: Cambria, Georgia;
+}
+
+a {
+    cursor: pointer;
+    cursor: hand;
+}
+
+nav a:visited,
+a:link {
+    color: #607D8B;
+}
+
+nav a:hover {
+    color: #039be5;
+    background-color: #CFD8DC;
+}
+
+nav a.active {
+    color: #039be5;
+}
+
+/* everywhere else */
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+//=============================================================================
+// Global colors
+//=============================================================================
+//Sucess / Info / Alert / Error colors
+$app-msg-sucess-bg-color: darken(#46BE8A, 15%);
+$app-msg-sucess-color: #FFFFFF;
+$app-msg-info-bg-color: rgba(#369, 0.5);
+$app-msg-info-color: #FFFFFF;
+$app-msg-alert-bg-color: darken(#F2A261, 15%);
+$app-msg-alert-color: #FFFFFF;
+$app-msg-error-bg-color: darken(#F96868, 15%);
+$app-msg-error-color: #FFFFFF;
+//=============================================================================
+// Notifications (snackbar)
+//=============================================================================
+$notification-font-size: 14px;
+.notification-snackbar {
+    &.sucess {
+        background-color: $app-msg-sucess-bg-color;
+        color: $app-msg-sucess-color;
+    }
+    &.error {
+        background-color: $app-msg-error-bg-color;
+        color: $app-msg-error-color;
+    }
+    &.alert {
+        background-color: $app-msg-alert-bg-color;
+        color: $app-msg-alert-color;
+    }
+    &.info {
+        background-color: $app-msg-info-bg-color;
+        color: $app-msg-info-color;
+    }
+}
