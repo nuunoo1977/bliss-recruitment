@@ -26,8 +26,8 @@ export class QuestionDetailComponent implements OnInit {
 
     private questionId: number;
     private question: Question = null;
-    private maxVotes: number = 0;
-    public userHasVoted: boolean = false;
+    private maxVotes = 0;
+    public userHasVoted = false;
 
     ngOnInit() {
 
@@ -61,28 +61,29 @@ export class QuestionDetailComponent implements OnInit {
     }
 
     voteChoice(choiceIndex: number) {
-        //TODO: maybe use deep copying and update votes after
-        let questionUpdate: QuestionUpdate =  (({ id,question,image_url,thumb_url,choices}) => ({ id,question,image_url,thumb_url,choices }))(this.question);
+        // TODO: maybe use deep copying and update votes after
+        const questionUpdate: QuestionUpdate = (({ id, question, image_url, thumb_url, choices }) =>
+            ({ id, question, image_url, thumb_url, choices }))(this.question);
         questionUpdate.choices = [];
         this.question.choices.forEach((item, index) => {
-            questionUpdate.choices.push( { choice: item.choice , votes: (index == choiceIndex ? 1: 0) });
+            questionUpdate.choices.push({ choice: item.choice, votes: (index === choiceIndex ? 1 : 0) });
         });
         this.questionsService.updateQuestion(questionUpdate).subscribe(
             (question) => {
                 if (question) {
-                    //TODO: check with client what we wants to show after vote. For now we update question detail and disable vote buttons)
+                    // TODO: check with client what we wants to show after vote. For now we update question detail and disable vote buttons)
                     this.userHasVoted = true;
                     this.notificationsService.newSucess('Vote submitted');
                     this.loadQuestion();
                 }
             }
-        );   
+        );
     }
 
-    shareScreen() {      
-        let options : ShareScreenOptions = {
-            title: "Share question " + this.questionId,
-            link: "/questions?question_id=" + this.questionId
+    shareScreen() {
+        const options: ShareScreenOptions = {
+            title: 'Share question ' + this.questionId,
+            link: '/questions?question_id=' + this.questionId
         };
         this.dialog.open(ShareScreenComponent, {
             data: options,

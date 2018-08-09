@@ -33,7 +33,7 @@ export class ShareScreenComponent {
         const param: ShareParameters = {
             destination_email: this.form.controls.email.value,
             content_url: window.location.origin + this.data.link
-        }
+        };
         this.questionsService.shareContent(param)
             .subscribe(
                 (result) => {

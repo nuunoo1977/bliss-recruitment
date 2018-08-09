@@ -10,10 +10,10 @@ import { mapTo, tap } from 'rxjs/operators';
 })
 export class InternetConnectionAlertComponent  {
 
-    online : Observable<boolean>;
+    online: Observable<boolean>;
 
      constructor() {
-         //TODO: not working for all cases.
+         // TODO: not working for all cases.
         this.online = merge(
           of(navigator.onLine),
           fromEvent(window, 'online').pipe(mapTo(true)),
