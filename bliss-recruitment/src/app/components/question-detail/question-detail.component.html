@@ -1,12 +1,23 @@
-<h3>Question {{questionId}} detail</h3>
-<button type="button" (click)="gotoQuestions()">Back to questions list</button>
-<button *ngIf="question" type="button" (click)="shareScreen()">Share</button>
+<div class="line-block">
+    <h3>Question {{questionId}}</h3>
+    <div class="action">
+        <button type="button" mat-stroked-button (click)="gotoQuestions()">Back to questions list</button>
+        <button *ngIf="question" mat-flat-button type="button" (click)="shareScreen()">Share</button>
+    </div>
+</div>
 
 <div *ngIf="question" class="question-container">
     <img src="{{question.image_url}}">
     <div class="question">{{question.question}}</div>
     <div class="choice" *ngFor="let choice of question.choices; let i = index">
-        <div class="label"><button *ngIf="!userHasVoted" type="button" class="vote" (click)="voteChoice(i)">Vote</button>{{choice.choice}}</div>
-        <div class="bar-container"><div class="bar" [ngStyle]="votesBarStyle(choice.votes)"></div><div class="label">{{choice.votes}} votes</div></div> 
+        <div class="label">
+            <button *ngIf="!userHasVoted" type="button" class="vote" (click)="voteChoice(i)">Vote</button>{{choice.choice}}</div>
+        <div class="bar-container">
+            <div class="bar" [ngStyle]="votesBarStyle(choice.votes)"></div>
+            <div class="label">{{choice.votes}} votes</div>
+        </div>
+    </div>
+    <div class="footnote">
+        Published {{question.published_at | date:'long' }}
     </div>
 </div>

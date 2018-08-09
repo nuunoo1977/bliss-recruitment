@@ -9,19 +9,21 @@
 </form>
 
 <!-- Title when filter is active -->
-<div *ngIf="currentAppliedFilter" class="search-screen-title-bar">
+<div *ngIf="currentAppliedFilter" class="line-block">
     <h4>Results filtered by '
-        <span class="search-txt">{{currentAppliedFilter}}</span>'</h4>
-    <button type="button" (click)="onSearchCancel()">Dismiss search</button>
-    <button type="button" (click)="shareScreen()">Share</button>
+        <span class="search-txt">{{currentAppliedFilter}}</span>'
+    </h4>
+    <div class="action">
+        <button type="button" mat-stroked-button (click)="onSearchCancel()">Dismiss search</button>
+        <button type="button" mat-flat-button (click)="shareScreen()">Share</button>
+    </div>
 </div>
 
 <!-- Questions List -->
 <ul class="questions">
-    <li *ngFor="let question of questions">
-        <a routerLink="/questions/{{question.id}}">
-            <span class="badge">{{question.id}}</span> {{question.question}}
-        </a>
+    <li *ngFor="let question of questions" routerLink="/questions/{{question.id}}">
+            <img src="{{question.thumb_url}}">
+            {{question.id}} . {{question.question}}
     </li>
     <li *ngIf="questions.length == 0">
         No results
@@ -29,5 +31,9 @@
 </ul>
 
 <!-- Load more questions button -->
-<button *ngIf="!allQuestionsLoaded" type="button" (click)="loadNextQuestions()">Load more questions</button>
-<div *ngIf="allQuestionsLoaded">(no more questions available)</div>
+<div class="line-block">
+    <div class="action">
+        <span *ngIf="allQuestionsLoaded">(no more questions available)</span>
+        <button *ngIf="!allQuestionsLoaded" type="button" mat-flat-button (click)="loadNextQuestions()">Load more questions</button>
+    </div>
+</div>
