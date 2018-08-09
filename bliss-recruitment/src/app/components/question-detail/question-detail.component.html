@@ -11,7 +11,7 @@
     <div class="question">{{question.question}}</div>
     <div class="choice" *ngFor="let choice of question.choices; let i = index">
         <div class="label">
-            <button mat-flat-button *ngIf="!userHasVoted" type="button" class="vote" (click)="voteChoice(i)">Vote</button>{{choice.choice}}</div>
+            <button mat-flat-button *ngIf="!userHasVoted" type="button"  (click)="voteChoice(i)">Vote</button>{{choice.choice}}</div>
         <div class="bar-container">
             <div class="bar" [ngStyle]="votesBarStyle(choice.votes)"></div>
             <div class="label">{{choice.votes}} votes</div>

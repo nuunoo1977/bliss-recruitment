@@ -9,7 +9,15 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoaderInterceptor } from './shared/loader-interceptor';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, MatProgressSpinnerModule, MatSnackBarModule } from '@angular/material';
+import {
+        MatButtonModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        MatProgressSpinnerModule,
+        MatSnackBarModule
+} from '@angular/material';
 
 import { LoaderComponent } from './components/loader/loader.component';
 import { InternetConnectionAlertComponent } from './components/internet-connection-alert/internet-connection-alert.component';

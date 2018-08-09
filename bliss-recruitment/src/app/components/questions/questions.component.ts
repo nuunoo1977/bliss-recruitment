@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { QuestionsService } from '../../shared/questions.service';
-import { Question } from '../../shared/question';
+import { Question } from '../../shared/models/question';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { ShareScreenComponent, ShareScreenOptions } from '../share-screen/share-screen.component';
@@ -33,15 +33,13 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
         this.route.queryParams.subscribe(params => {
             if (params['question_id']) {
                 this.router.navigate(['/questions', params['question_id']]);
-            }
-            else {
+            } else {
                 if (params.hasOwnProperty('question_filter')) {
                     this.searchInputValue = params['question_filter'];
                 }
                 if (this.searchInputValue) {
                     this.onSearchSubmit();
-                }
-                else {
+                } else {
                     this.loadNextQuestions();
                 }
             }
@@ -49,19 +47,21 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        if (this.searchInputValue == '') {
+        if (this.searchInputValue === '') {
             this.searchInput.nativeElement.focus();
         }
     }
 
     loadNextQuestions(): void {
-        this.questionsService.getQuestions(this.questionsLimitByRequest, this.questions? this.questions.length: 0, this.currentAppliedFilter)
-            .subscribe(
-                (questions) => {
-                    this.questions = this.questions? this.questions.concat(questions) : questions;
-                    this.allQuestionsLoaded = questions.length < this.questionsLimitByRequest;
-                }
-            );
+        this.questionsService.getQuestions(
+            this.questionsLimitByRequest,
+            this.questions ? this.questions.length : 0, this.currentAppliedFilter
+        ).subscribe(
+            (questions) => {
+                this.questions = this.questions ? this.questions.concat(questions) : questions;
+                this.allQuestionsLoaded = questions.length < this.questionsLimitByRequest;
+            }
+        );
     }
 
     loadSearchQuestions(searchValue: string): void {
@@ -77,9 +77,9 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
 
 
     onSearchSubmit(f?: any, event?: Event) {
-        if(event) {
+        if (event) {
             event.preventDefault();
-        } 
+        }
         if (this.searchInputValue) {
             this.loadSearchQuestions(this.searchInputValue);
         }
@@ -91,10 +91,10 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
         this.loadNextQuestions();
     }
 
-    shareScreen() {      
-        let options : ShareScreenOptions = {
-            title: "Share search result",
-            link: "/questions?question_filter=" + encodeURIComponent(this.currentAppliedFilter)
+    shareScreen() {
+        const options: ShareScreenOptions = {
+            title: 'Share search result',
+            link: '/questions?question_filter=' + encodeURIComponent(this.currentAppliedFilter)
         };
         this.dialog.open(ShareScreenComponent, {
             data: options,
