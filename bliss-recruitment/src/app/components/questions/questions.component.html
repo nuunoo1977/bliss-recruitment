@@ -25,7 +25,7 @@
             <img src="{{question.thumb_url}}">
             {{question.id}} . {{question.question}}
     </li>
-    <li *ngIf="questions.length == 0">
+    <li *ngIf="questions && questions.length == 0">
         No results
     </li>
 </ul>
@@ -34,6 +34,6 @@
 <div class="line-block">
     <div class="action">
         <span *ngIf="allQuestionsLoaded">(no more questions available)</span>
-        <button *ngIf="!allQuestionsLoaded" type="button" mat-flat-button (click)="loadNextQuestions()">Load more questions</button>
+        <button *ngIf="questions && !allQuestionsLoaded" type="button" mat-flat-button (click)="loadNextQuestions()">Load more questions</button>
     </div>
 </div>
