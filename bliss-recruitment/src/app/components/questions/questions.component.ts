@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { QuestionsService } from '../../shared/questions.service';
 import { Question } from '../../shared/models/question';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -26,6 +26,7 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
         private route: ActivatedRoute,
         private questionsService: QuestionsService,
         private dialog: MatDialog,
+        private changeDetectorRef: ChangeDetectorRef
     ) {
     }
 
@@ -50,6 +51,7 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
         if (this.searchInputValue === '') {
             this.searchInput.nativeElement.focus();
         }
+        this.changeDetectorRef.detectChanges();
     }
 
     loadNextQuestions(): void {
