@@ -4,6 +4,7 @@
 <form *ngIf="!currentAppliedFilter" #searchForm (ngSubmit)="onSearchSubmit(f, $event)">
     <mat-form-field class="search-box">
         <input type="text" #searchInput matInput placeholder="Search" name="searchInput" [(ngModel)]="searchInputValue">
+        <mat-icon matSuffix *ngIf="searchInputValue" (click)="searchInputValue=null">close</mat-icon>
         <mat-icon matSuffix (click)="onSearchSubmit()">search</mat-icon>
     </mat-form-field>
 </form>
@@ -22,8 +23,7 @@
 <!-- Questions List -->
 <ul class="questions">
     <li *ngFor="let question of questions" routerLink="/questions/{{question.id}}">
-            <img src="{{question.thumb_url}}">
-            {{question.id}} . {{question.question}}
+        <img src="{{question.thumb_url}}"> {{question.id}} . {{question.question}}
     </li>
     <li *ngIf="questions && questions.length == 0">
         No results
