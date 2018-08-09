@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { QuestionsService } from '../../shared/questions.service';
 import { Question } from '../../shared/question';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-questions',
@@ -20,6 +20,7 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
     currentAppliedFilter = null;
 
     constructor(
+        private router: Router,
         private route: ActivatedRoute,
         private questionsService: QuestionsService
     ) {
@@ -27,20 +28,25 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {
         this.route.queryParams.subscribe(params => {
-            if(params.hasOwnProperty('question_filter')) {
-                this.searchInputValue = params['question_filter'];
-            }
-            if(this.searchInputValue) {
-                this.onSearchSubmit();
+            if (params['question_id']) {
+                this.router.navigate(['/questions', params['question_id']]);
             }
             else {
-                this.loadNextQuestions();
+                if (params.hasOwnProperty('question_filter')) {
+                    this.searchInputValue = params['question_filter'];
+                }
+                if (this.searchInputValue) {
+                    this.onSearchSubmit();
+                }
+                else {
+                    this.loadNextQuestions();
+                }
             }
         });
     }
 
     ngAfterViewInit() {
-        if(this.searchInputValue == '') {
+        if (this.searchInputValue == '') {
             this.searchInput.nativeElement.focus();
         }
     }
@@ -56,7 +62,7 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
     }
 
     loadSearchQuestions(searchValue: string): void {
-        this.questionsService.getQuestions(this.questionsLimitByRequest,0, searchValue)
+        this.questionsService.getQuestions(this.questionsLimitByRequest, 0, searchValue)
             .subscribe(
                 (questions) => {
                     this.questions = questions;
@@ -68,7 +74,7 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
 
 
     onSearchSubmit() {
-        if(this.searchInputValue) {
+        if (this.searchInputValue) {
             this.loadSearchQuestions(this.searchInputValue);
         }
     }

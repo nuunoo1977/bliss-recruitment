@@ -19,7 +19,7 @@
 <!-- Questions List -->
 <ul class="questions">
     <li *ngFor="let question of questions">
-        <a routerLink="/question/{{question.id}}">
+        <a routerLink="/questions/{{question.id}}">
             <span class="badge">{{question.id}}</span> {{question.question}}
         </a>
     </li>
