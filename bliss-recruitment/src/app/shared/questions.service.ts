@@ -38,5 +38,22 @@ export class QuestionsService {
         // );
     }
 
+    getQuestion(questionId: number): Observable<Question> {
+        return this.http.get<Question>(`${this.apiUrl}/questions/${questionId}`)
+        .pipe(
+            map(result => {
+                if (!result || result.id != questionId) {
+                    console.log('Erro');
+                    return null;
+                }
+                return result;
+            })
+        );
+        // .pipe(
+        //     tap(questions => this.log('fetched questions')),
+        //     catchError(this.handleError('getQuestions', []))
+        // );
+    }
+
 
 }
