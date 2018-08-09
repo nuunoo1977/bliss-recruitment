@@ -1,1 +1,11 @@
-Question detail
+<h3>Question {{questionId}} detail</h3>
+<button type="button" (click)="gotoQuestions()">Back to questions list</button>
+
+<div *ngIf="question" class="question-container">
+    <img src="{{question.image_url}}">
+    <div class="question">{{question.question}}</div>
+    <div class="choice" *ngFor="let choice of question.choices">
+        <div class="label"><button type="button" class="vote">Vote</button>{{choice.choice}}</div>
+        <div class="bar-container"><div class="bar" [ngStyle]="votesBarStyle(choice.votes)"></div><div class="label">{{choice.votes}} votes</div></div> 
+    </div>
+</div>

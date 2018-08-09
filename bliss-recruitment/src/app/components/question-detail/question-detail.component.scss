@@ -1,0 +1,43 @@
+.question-container {
+    width: 600px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+    img {
+        width: auto;
+        height: 400px;
+    }
+    .question {
+        margin-top: 16px;
+    }
+    .choice {
+        margin: 16px;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: stretch;
+        .label {
+            display: flex;
+            align-items: center;
+            button {
+                margin-right: 16px;
+            }
+        }
+        .bar-container {
+            margin-top: 8px;
+            height: 16px;
+            font-size: x-small;
+            width: 75%;
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            white-space: nowrap;
+            .bar {
+                height: 100%;
+                width: 0%;
+                background-color: green;
+                margin-right: 8px;
+                transition: width 1.00s ease-in-out;
+            }
+        }
+    }
+}

@@ -8,7 +8,7 @@ import { QuestionDetailComponent } from './components/question-detail/question-d
 const routes: Routes = [
     { path: '', component: LoadingScreenComponent, pathMatch: 'full' },
     { path: 'questions', component: QuestionsComponent },
-    { path: 'question/:id', component: QuestionDetailComponent },
+    { path: 'questions/:id', component: QuestionDetailComponent },
     { path: '**', component: LoadingScreenComponent }
 ];
 
