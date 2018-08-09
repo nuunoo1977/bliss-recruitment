@@ -24,8 +24,8 @@ export class QuestionDetailComponent implements OnInit {
     ) {
     }
 
-    private questionId: number;
-    private question: Question = null;
+    public questionId: number;
+    public question: Question = null;
     private maxVotes = 0;
     public userHasVoted = false;
 
