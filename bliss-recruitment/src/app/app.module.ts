@@ -8,15 +8,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoaderInterceptor } from './shared/loader-interceptor';
 
-import { FormsModule } from '@angular/forms';
-import { MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatProgressSpinnerModule, MatSnackBarModule } from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, MatProgressSpinnerModule, MatSnackBarModule } from '@angular/material';
 
 import { LoaderComponent } from './components/loader/loader.component';
 import { InternetConnectionAlertComponent } from './components/internet-connection-alert/internet-connection-alert.component';
 import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
 import { QuestionsComponent } from './components/questions/questions.component';
 import { QuestionDetailComponent } from './components/question-detail/question-detail.component';
-
+import { ShareScreenComponent } from './components/share-screen/share-screen.component';
 
 @NgModule({
     declarations: [
@@ -25,15 +25,18 @@ import { QuestionDetailComponent } from './components/question-detail/question-d
         LoaderComponent,
         LoadingScreenComponent,
         QuestionsComponent,
-        QuestionDetailComponent
+        QuestionDetailComponent,
+        ShareScreenComponent
     ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
         FormsModule,
+        ReactiveFormsModule,
         HttpClientModule,
         MatButtonModule,
+        MatDialogModule,
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,
@@ -45,6 +48,9 @@ import { QuestionDetailComponent } from './components/question-detail/question-d
         useClass: LoaderInterceptor,
         multi: true,
       }],
+      entryComponents: [
+        ShareScreenComponent
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
