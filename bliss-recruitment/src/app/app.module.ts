@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatProgressSpinnerModule, MatSnackBarModule } from '@angular/material';
 
 import { LoaderComponent } from './components/loader/loader.component';
+import { InternetConnectionAlertComponent } from './components/internet-connection-alert/internet-connection-alert.component';
 import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
 import { QuestionsComponent } from './components/questions/questions.component';
 import { QuestionDetailComponent } from './components/question-detail/question-detail.component';
@@ -20,6 +21,7 @@ import { QuestionDetailComponent } from './components/question-detail/question-d
 @NgModule({
     declarations: [
         AppComponent,
+        InternetConnectionAlertComponent,
         LoaderComponent,
         LoadingScreenComponent,
         QuestionsComponent,
