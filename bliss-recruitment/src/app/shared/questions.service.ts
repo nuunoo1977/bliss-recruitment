@@ -9,6 +9,7 @@ import { NotificationsService } from '../shared/notifications.service';
 import { Question } from './question';
 import { QuestionUpdate } from './question-update';
 import { GetQuestionsParameters } from './get-questions-parameters';
+import { ShareParameters } from './share-parameters';
 import { LoaderService } from './loader.services';
 
 const httpPutOptions = {
@@ -50,7 +51,7 @@ export class QuestionsService {
                     }
                     return false;
                 }),
-                catchError(this.handleError<boolean>('check server health', false,false))
+                catchError(this.handleError<boolean>('check server health', false, false))
             );
     }
 
@@ -83,11 +84,25 @@ export class QuestionsService {
             );
     }
 
+    shareContent(parameters: ShareParameters): Observable<boolean> {
+        return this.http.post<any>(`${this.apiUrl}/share`, { params: <any>parameters })
+            .pipe(
+                map(result => {
+                    if (result && result.status == 'OK') {
+                        return true;
+                    }
+                    this.showErrorToUser("Error in share content");
+                    return false;
+                }),
+                catchError(this.handleError<boolean>('share content', false))
+            );
+    }
+
     private handleError<T>(context: string, result?: T, notifyUser: boolean = true) {
         return (error: any): Observable<T> => {
-           
+
             console.error("Error in " + context);
-            if(notifyUser) {
+            if (notifyUser) {
                 this.showErrorToUser("Error in " + context);
             }
             return of(result as T);
