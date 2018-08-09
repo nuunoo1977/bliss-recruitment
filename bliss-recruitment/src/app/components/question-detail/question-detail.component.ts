@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import { QuestionsService } from '../../shared/questions.service';
 import { Question } from '../../shared/question';
 import { ActivatedRoute, Router } from '@angular/router';
+import { QuestionUpdate } from '../../shared/question-update';
+import { NotificationsService } from '../../shared/notifications.service';
 
 
 @Component({
@@ -14,13 +16,15 @@ export class QuestionDetailComponent implements OnInit {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private questionsService: QuestionsService
+        private questionsService: QuestionsService,
+        private notificationsService: NotificationsService
     ) {
     }
 
     private questionId: number;
     private question: Question = null;
     private maxVotes: number = 0;
+    public userHasVoted: boolean = false;
 
     ngOnInit() {
 
@@ -51,6 +55,26 @@ export class QuestionDetailComponent implements OnInit {
     votesBarStyle(votes: number): {} {
         const width = !this.maxVotes ? 0 : 100 * (votes / this.maxVotes);
         return { width: width + '%' };
+    }
+
+    voteChoice(choiceIndex: number) {
+        //TODO: maybe use deep copying and update votes after
+        let questionUpdate: QuestionUpdate =  (({ id,question,image_url,thumb_url,choices}) => ({ id,question,image_url,thumb_url,choices }))(this.question);
+        questionUpdate.choices = [];
+        this.question.choices.forEach((item, index) => {
+            questionUpdate.choices.push( { choice: item.choice , votes: (index == choiceIndex ? 1: 0) });
+        });
+        this.questionsService.updateQuestion(questionUpdate).subscribe(
+            (question) => {
+                if (question) {
+                    //TODO: check with client what we wants to show after vote. For now we update question detail and disable vote buttons)
+                    this.userHasVoted = true;
+                    this.notificationsService.newSucess('Vote submitted');
+                    this.loadQuestion();
+                }
+            }
+        );
+        
     }
 }
 
