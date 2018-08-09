@@ -1,7 +1,7 @@
 # BlissRecruitment
 
 This project is part of Bliss Applications candidate evaluation for frontend positions.
-Was developted by Nuno Felicio (nuunoo@gmail.com) in accordance with the Bliss Recruitment App Requirements Specification document (not included in this repo because of confidentiality and Bliss Applications ownership).
+Was developed by Nuno Felicio (nuunoo@gmail.com) in accordance with the Bliss Recruitment App Requirements Specification document (not included in this repo because of confidentiality and Bliss Applications ownership).
 
 ## Requirements
 
